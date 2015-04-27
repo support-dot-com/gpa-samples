@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="//static.nexus.support.com/gpa/v1/nexusNavigator.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<style>
+.container {
+  background-image: url(data:image/gif;base64,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);
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center 20%;
+  -webkit-background-size: auto;
+  -moz-background-size: auto;
+  -o-background-size: auto;
+  background-size: auto;
+  width: 100%;
+  min-height: 500px;
+  height: 100%
+  border: none;
+}
+i:hover { color: #88C82B; }
+i.action:hover { cursor: pointer; }
+.background-grid  {
+  background-color: #fff;
+  background:
+        linear-gradient(-90deg, rgba(0, 0, 0, .03) 1px, transparent 1px),
+        linear-gradient(rgba(0, 0, 0, .03) 1px, transparent 1px),
+        linear-gradient(-90deg, rgba(0, 0, 0, .03) 1px, transparent 1px),
+        linear-gradient(rgba(0, 0, 0, .03) 1px, transparent 1px),
+        linear-gradient(transparent 3px, transparent 3px, transparent 78px, transparent 78px),
+        linear-gradient(-90deg, transparent 1px, transparent 1px),
+        linear-gradient(-90deg, transparent 3px, transparent 3px, transparent 78px, transparent 78px),
+        linear-gradient(transparent 1px, transparent 1px), transparent;
+  background-size:
+        10px 10px,
+        10px 10px,
+        10px 10px,
+        10px 10px,
+        10px 10px,
+        10px 10px,
+        10px 10px,
+        10px 10px;
+}
+</style>
+<div class="container">
+  <div class="page">
+    <div class="info-pane" style="display:none">
+      <div class="subscriber-pane">
+        <h4><i class="fa fa-user fa-6"></i>&nbsp;Subscriber</h4>
+        <table cellpadding="0" cellspacing="0" border="0" class="stdtable" style="max-width:1000px;">
+          <thead>
+            <tr class="label">
+              <th class="head1">Email</th>
+              <th class="head1">First</th>
+              <th class="head0">Last</th>
+              <th class="head0">Phone 1</th>
+              <th class="head1">Phone 2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="odd">
+              <td class="head0"><span id="email"></span></td>
+              <td class="head1"><span id="given_name"></span></td>
+              <td class="head0"><span id="family_name"></span></td>
+              <td class="head1"><span id="phone1"></span></td>
+              <td class="head0"><span id="phone2"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br/><hr><br/>
+      <div class="device-pane">
+        <h4><i class="fa fa-laptop fa-6"></i>&nbsp;Devices</h4>
+        <table cellpadding="0" cellspacing="0" border="0" id="devices" class="stdtable" style="max-width:1000px;"></table>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+(function ($, nexusNavigator) {
+  if (!nexusNavigator) {
+    console.log("Missing nexus navigator object");
+    return;
+  }
+  console.log("Init page within nexus navigator");
+  var nexusApi = null;
+  nexusNavigator.on('ready', function (api) {
+    console.log("Nexus API is ready");
+    nexusApi = api;
+    onReady();
+  });
+  nexusNavigator.on('error', function (err) {
+    console.error("Error accessing nexus API", ex);
+  });
+  //Nexus is connected to remote device
+  nexusNavigator.on('task-init', function () {
+    console.log("Nexus connected to remote device");
+    getData();
+  });
+  nexusNavigator.loadCss();
+
+  function onReady() {
+    console.log("ready to invoke authenticate");
+    authenticateUser(function(err, t) {
+      if (err) {
+        console.error("Got error during authenticate ->", err);
+        return;
+      }
+      console.log("ready to get subscriber details");
+      getSubscriberDetails(function(err, subscriber) {
+        if (err) {
+          console.error("Got error during getSubscriberDetails ->", err);
+          return;
+        }
+        console.log("Populate UI");
+        $("div.container").css('background-image', 'none');
+        $("div.info-pane").show();
+        populateData($("div.subscriber-pane"), subscriber);
+        populateDeviceTable($("table#devices"), subscriber.devices);
+      });
+    });
+  }
+
+  function authenticateUser(done) {
+    console.log("AuthenticateUser: Get token for authentication");
+    nexusApi.getToken(function(token){
+      console.log("AuthenticateUser: Token received. Validating with server");
+      var jqxhr = $.ajax( {
+        type: "GET",
+        url: "/device/authenticate/?token="+token
+      }).done(function(data, textStatus, jqXHR) {
+        console.log("authenticate");
+        if (data.err) {
+          console.error("authenticate: error", JSON.stringify(data));
+          done(new Error(data.err.message));
+          return;
+        }
+        console.log("authenticate: response", JSON.stringify(data));
+        done(null, data);
+      }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error( "authenticate:Request failed: " + textStatus );
+        done(new Error("Error processing request"));
+      //}).always(function(data, textStatus, jqXHR) {
+        //console.debug("authenticate:finished");
+      });
+    });
+  }
+
+  function getSubscriberDetails(callback) {
+    nexusApi.getSession(function(session){
+      getSubscriberDevice(session.consumer, callback);
+    });
+  }
+
+  function getSubscriberDevice(consumer, done) {
+    console.log("getSubscriberDevice: Get token for authentication");
+    var jqxhr = $.ajax( {
+      type: "GET",
+      url: "/device/"+(consumer.email||consumer.external_id)
+    }).done(function(data, textStatus, jqXHR) {
+      console.log("getSubscriberDevice");
+      if (data && data.err) {
+        console.error("getSubscriberDevice: error", JSON.stringify(data));
+        done(new Error(data.err.message));
+        return;
+      }
+      console.log("getSubscriberDevice: response", JSON.stringify(data));
+      consumer.devices = data;
+      done(null, consumer);
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+      console.error( "getSubscriberDevice:Request failed: " + textStatus );
+      done(new Error("Error processing request"));
+    //}).always(function(data, textStatus, jqXHR) {
+      //console.debug("getSubscriberDevice:finished");
+    });
+  }
+
+  function getDeviceState(done) {
+    nexusApi.isConnected(function (yes) {
+      if (yes) {
+        //return getDeviceInfo();
+        nexusApi.sendCommand("GET_SYSINFO",1,"getInfo",{},function(o) {
+          done(null, o);
+        });
+      } else {
+        console.log("Not connected!!!");
+        done(new Error("Not Connected!!!"));
+      }
+    });
+  }
+  function populateData(parent, data) {
+    $.each(data, function (fld, val) {
+      var fldElm = parent.find("#"+fld);
+      if (fldElm.get(0)) {
+        if (typeof val === "string") {
+          fldElm.text(val);
+        } else if (typeof val === "boolean") {
+          fldElm.text(val?"Yes":"No");
+        } else if (typeof val === "object") {
+          //TODO: populate table
+        }
+      }
+    });
+  }
+
+  function checkRebindTable(tbl, o) {
+    if (tbl.hasClass("dataTable")) {
+      var dTbl = tbl.DataTable();
+      dTbl.clear();
+      dTbl.rows.add(o).draw();
+      return dTbl;
+    }
+    return false;
+  }
+
+  function populateDeviceTable(sTbl, devices) {
+    //if (sTbl.hasClass("dataTable")) sTbl.DataTable().destroy();
+    var dTbl = checkRebindTable(sTbl, devices);
+    if (dTbl) return dTbl;
+
+    var deviceDetails = function(device) {
+      var html = '<div class="toggledata"> \
+                    <p> \
+                      <div class="battery-info" title="'+device.battery.level+'% battery charged" style="height:40px; width: 55px; float:left;"> \
+                        <div class="battery-img" style="background-repeat: no-repeat;width:60px;height:40px;background-size: 100%;position:absolute;"/> \
+                        <div class="battery-available" style="padding-top: 2px; height:28px;"/> \
+                      </div> \
+                      <div class="disk-info background-grid" title="'+device.disk.used+'% disk used" style="height: 25px; width: 250px; border: solid 2px #c5c5c5; margin-left:50px; margin-top: 2px; float: right "> \
+                        <div class="disk-used" style="height:100%;background-color:#abced4;float:right; text-align:center; font-style:italic;">'+device.disk.used+'% used</div> \
+                      </div> \
+                    </p> \
+                  </div>';
+      //$.each(device, function(p, v) {
+      //  html +=
+      //      ' <p> \
+      //          <label for="' + p + '">' + p +'</label> \
+      //          <span class="field"><input id="' + p + '_text" type="text" name="' + p + '" class="mediuminput" /></span> \
+      //        </p> \
+      //      ';
+      //});
+
+      var dPane = $(html);
+      var batteryAvail = dPane.find(".battery-available");
+      batteryAvail.css("width",device.battery.level > 95 ? "95%" : (device.battery.level.toString() +"%"));
+      batteryAvail.css("background-color",device.battery.level > 30 ? "#76A945" : device.battery.level > 15 ? "YELLOW" : "#EC6262");
+      var batteryImg = dPane.find(".battery-img");
+      var battery_charging = "data:image/image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAAAnCAYAAABUr/U/AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAATJJREFUeNrsmO0NgjAYhMF0AEfADRxBcAE2EDdxA3UDN5AFJIzgBjICG+C9SX8YI37E2g97l1ww/rE8fa+9mOZ5MSQRqmlO6f13k4QiDMJ4IfVOlv5BRbEcOBmMCWEQBmEQBmG47RkW7vsjHj28R6c5+9Q7lIN1TOESrrCgTqDANcB0scckg7fwRSYGrqKKyRPJtJQAInBqFzHyCcZtjCoXMfL9NrEaI5WEo5/H6CsYWNhcj/WnMTAaI0DZ+TAZvd6xlR5pE8rxcm1wt4k+1DZi7NJCQykN7H7YPUN2E17j4wyWZxsaDOMHKIBIdA5iTEum820yRmHeJqHFyFrPCCFG1nuGzzFyWrpGYtRb+u3U2waqu0UbxZkRVc8gDMIgDMKITerBfxQDJ4MiDMIY0VWAAQAkNXJm7lUeGQAAAABJRU5ErkJggg==";
+      var battery_bg = "data:image/image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAAAnCAYAAABUr/U/AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHVJREFUeNrs2UEKgDAMBMBW/Fjju+3X6l0Ee1Ixs8cehw2kpLYWoyRM73s9vy1FYMC4yTozS39IxDY0w5jAgAEDBox394wsudo7NAMGDBgwYMCAAQMGDBgwYPjCfy7Oi8YEBgwYMGA8v2fMnO41AwaMtDkEGACAPQ4Zlm/FowAAAABJRU5ErkJggg==";
+      batteryImg.css("background-image", "url(" + (device.battery.charging ? battery_charging : battery_bg) + ")");
+      var diskUsed = dPane.find(".disk-used");
+      diskUsed.css("width",device.disk.used > 95 ? "95%" : (device.disk.used.toString() +"%"));
+      //$.each(device, function(p, v) {
+      //  dPane.find('input[name="'+p+'"]').val(v);
+      //});
+      return dPane;
+
+    };
+    sTbl.on('draw.dt', function (e, settings) {
+      if (sTbl.css("min-width")) sTbl.closest(".dataTables_wrapper").css({"min-width": sTbl.css("min-width")});
+      if (sTbl.css("max-width")) sTbl.closest(".dataTables_wrapper").css({"max-width": sTbl.css("max-width")});
+      sTbl.find("tbody td i.show-details").off().click(function() {
+        var tr = $(this).parents("tr");
+        var row = sTbl.DataTable().row(tr);
+        if ( row.child.isShown() ) {
+          // This row is already open - close it
+          row.child.hide();
+          tr.removeClass('shown');
+        } else {
+          // Open this row (the format() function would return the data to be shown)
+          row.child( deviceDetails(row.data()) ).show();
+          tr.addClass('shown');
+        }
+      });
+    }).dataTable( {
+      "language": {
+        "paginate": { "previous": "<<", "next": ">>" }
+      },
+      "data": devices,
+      "columns": [
+        { "title": "Model", "data": "model", "orderable": true, "className": "head0", "defaultContent": "" },
+        { "title": "Make", "data": "make", "orderable": true, "className": "head1", "defaultContent": "" },
+        { "title": "Identifier", "data": "id", "orderable": true, "className": "head0", "defaultContent": "" },
+        { "title": "Details", "data": "", "orderable": false, "className": "head1", "defaultContent": "",
+          "render": function(data, type, row, meta) {
+             //return '<i class="show-details action fa fa-table" title="Show Details"></i>';
+             return '<i class="show-details action fa fa-bolt" style="" title="Show Details"></i>';
+          }
+        }
+      ]
+    });
+    var dt = sTbl.DataTable();
+    return dt;
+  }
+})(jQuery, window.nexusNavigator);
+</script>
+</body>
+</html>
