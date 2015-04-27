@@ -162,7 +162,7 @@ i.action:hover { cursor: pointer; }
     console.log("getSubscriberDevice: Get token for authentication");
     var jqxhr = $.ajax( {
       type: "GET",
-      url: "/device/"+(consumer.email||consumer.external_id)
+      url: "/device/"+(consumer.external_id||consumer.email)
     }).done(function(data, textStatus, jqXHR) {
       console.log("getSubscriberDevice");
       if (data && data.err) {

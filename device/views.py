@@ -58,7 +58,7 @@ def deriveServerUrl(jwt):
   try:
     jwtParts = jwt.split(".")
     c = json.loads(base64.b64decode(jwtParts[1]).decode("utf-8"))
-    #
+    if not ".support.com" in c["d"]: return ""
     return "https://"+c["t"]+"."+c["d"]
   except:
     return ""
