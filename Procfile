@@ -1,1 +1,1 @@
-web: gunicorn gpas.wsgi --log-file -
+web: gunicorn sampleapp.wsgi --log-file -
