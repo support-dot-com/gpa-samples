@@ -4,9 +4,9 @@ The main logic is in device/templates/index.html.
 
 Following are the highlights:
 
-## Include //static.nexus.support.com/gpa/v1/nexusNavigator.js
+* Include //static.nexus.support.com/gpa/v1/nexusNavigator.js
 
-## Initialize the neuxs api object
+* Initialize the neuxs api object
 
   var nexusApi = null;
   nexusNavigator.on('ready', function (api) {
@@ -16,11 +16,11 @@ Following are the highlights:
   });
 
     
-## Load nexus style sheets (optional).
+* Load nexus style sheets (optional).
 
 nexusNavigator.loadCss();
 
-## Get token for authentication. This should be authenticated from a backend API. Backend authentication is desired because of security reasons.
+* Get token for authentication. This should be authenticated from a backend API. Backend authentication is desired because of security reasons.
 
     nexusApi.getToken(function(token){
       console.log("AuthenticateUser: Token received. Validating with server");
@@ -28,14 +28,14 @@ nexusNavigator.loadCss();
         type: "GET",
         url: "/device/authenticate/?token="+token
 
-## After authentication succeeds, access nexus session details. Similarly other nexus objects can be accessed (refer documentation http://developer.support.com/GPA.html).
+* After authentication succeeds, access nexus session details. Similarly other nexus objects can be accessed (refer documentation http://developer.support.com/GPA.html).
 
     nexusApi.getSession(function(session){
       getSubscriberDevice(session.consumer, callback);
     });
     
     
-## Optionally, if there is a need to push commands to remote connected device over websocket channel, refer following code:
+* Optionally, if there is a need to push commands to remote connected device over websocket channel, refer following code:
 
    //Invoked when nexus is connected to remote device over websocket channel. This is optional.
   nexusNavigator.on('task-init', function () {
