@@ -7,7 +7,7 @@ Following are the highlights:
 * Include SDK javascript //static.nexus.support.com/gpa/v1/nexusNavigator.js
 
 ```html
-script type="text/javascript" src="//static.nexus.support.com/gpa/v1/nexusNavigator.js"></script
+<script type="text/javascript" src="//static.nexus.support.com/gpa/v1/nexusNavigator.js"></script>
 ```
 
 * Initialize the neuxs api object
