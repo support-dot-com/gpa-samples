@@ -6,48 +6,69 @@ Following are the highlights:
 
 * Include SDK javascript //static.nexus.support.com/gpa/v1/nexusNavigator.js
 
-<code>
+```html
 script type="text/javascript" src="//static.nexus.support.com/gpa/v1/nexusNavigator.js"></script
-</code>
+```
 
 * Initialize the neuxs api object
 
-<code>
-  var nexusApi = null;
-  nexusNavigator.on('ready', function (api) {
-    console.log("Nexus API is ready");
-    nexusApi = api;
-    onReady();
-  });
-</code>
+```javascript
+var nexusApi = null;
+nexusNavigator.on('ready', function (api) {
+  console.log("Nexus API is ready");
+  nexusApi = api;
+  onReady();
+});
+```
     
 * Load nexus style sheets (optional).
 
-<code>
+```javascript
 nexusNavigator.loadCss();
-</code>
+```
 
-* Get token for authentication. This should be authenticated from a backend API. Backend authentication is desired because of security reasons.
+* Get token for authentication. This token should be authenticated from a backend API. Backend authentication is desired because of security reasons.
 
-<code>
+```javascript
     nexusApi.getToken(function(token){
       console.log("AuthenticateUser: Token received. Validating with server");
       var jqxhr = $.ajax( {
         type: "GET",
         url: "/device/authenticate/?token="+token
-</code>
+```
+
+```python
+def authenticate(request):
+.....
+  token = request.GET["token"]
+  headers = {'Accept': 'application/json', 'authorization': 'JWT ' + token}
+.....  
+  r = requests.get(serverUrl+"/api/v1/oauth2/verify", verify=False, headers=headers)
+  if r.status_code == 400:
+    return JsonResponse({"err":{"message":"Invalid Token"}})
+  if r.status_code == 403:
+    return JsonResponse({"err":{"message":"Authentication Failed"}})
+  if r.status_code != 200:
+    return JsonResponse({"err":{"message":"Server error"}})
+  try:
+    data = json.loads(r.text)
+  except:
+    return JsonResponse({"err":{"message":"Error returned by authenticate"}})
+  return JsonResponse(data)
+```
+
 * After authentication succeeds, access nexus session details. Similarly other nexus objects can be accessed (refer documentation http://developer.support.com/GPA.html).
 
-<code>
+```javascript
     nexusApi.getSession(function(session){
       getSubscriberDevice(session.consumer, callback);
     });
-</code>    
+```
     
 * Optionally, if there is a need to push commands to remote connected device over websocket channel, refer following code:
 
-<code>
-   //Invoked when nexus is connected to remote device over websocket channel. This is optional.
+```javascript
+   // Invoked when nexus is connected to remote device over websocket channel. This is optional.
   nexusNavigator.on('task-init', function () {
     console.log("Nexus connected to remote device");
     getData();
@@ -65,4 +86,4 @@ nexusNavigator.loadCss();
         done(new Error("Not Connected!!!"));
       }
     });
-  </code>  
+```
