@@ -10,7 +10,7 @@ Following are the highlights:
 <script type="text/javascript" src="//static.nexus.support.com/gpa/v1/nexusNavigator.js"></script>
 ```
 
-* Initialize the neuxs api object
+* Initialize the nexus api object
 
 ```javascript
 var nexusApi = null;
