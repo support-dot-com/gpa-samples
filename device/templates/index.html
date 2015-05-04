@@ -47,10 +47,12 @@ i.action:hover { cursor: pointer; }
         10px 10px,
         10px 10px;
 }
+label.error { float: none; color: #f00; font-size: 11px; display: block; text-align: left; font-weight: bold; width: 100% !important;}
 </style>
 <div class="container">
   <div class="page">
-    <div class="info-pane" style="display:none">
+    <div class="error-pane" style="display:none;"><label class="error"></label></div>
+    <div class="info-pane" style="display:none;">
       <div class="subscriber-pane">
         <h4><i class="fa fa-user fa-6"></i>&nbsp;Subscriber</h4>
         <table cellpadding="0" cellspacing="0" border="0" class="stdtable" style="max-width:1000px;">
@@ -105,16 +107,24 @@ i.action:hover { cursor: pointer; }
   });
   nexusNavigator.loadCss();
 
+  function showError(msg) {
+    var epane = $(".error-pane");
+    epane.show();
+    epane.children("label.error").text(msg);
+    $("div.container").css('background-image', 'none');
+  }
   function onReady() {
     console.log("ready to invoke authenticate");
     authenticateUser(function(err, t) {
       if (err) {
         console.error("Got error during authenticate ->", err);
+        showError(err.message || "Error during authenticating");
         return;
       }
       console.log("ready to get subscriber details");
       getSubscriberDetails(function(err, subscriber) {
         if (err) {
+          showError("Error loading subscriber details");
           console.error("Got error during getSubscriberDetails ->", err);
           return;
         }
