@@ -98,7 +98,7 @@ label.error { float: none; color: #f00; font-size: 11px; display: block; text-al
     onReady();
   });
   nexusNavigator.on('error', function (err) {
-    console.error("Error accessing nexus API", ex);
+    console.error("Error accessing nexus API", err);
   });
   //Nexus is connected to remote device
   nexusNavigator.on('task-init', function () {
